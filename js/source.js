@@ -38,14 +38,33 @@ const vertexShader = gl.createShader(gl.VERTEX_SHADER);
 gl.shaderSource(vertexShader, vertexShaderSource);
 gl.compileShader(vertexShader);
 
+if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS))
+{
+    const infoLog = gl.getShaderInfoLog(vertexShader);
+    throw new Error(`Shader failed to compile:\n${infoLog}`);
+}
+
 const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
 gl.shaderSource(fragmentShader, fragmentShaderSource);
 gl.compileShader(fragmentShader);
+
+if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS))
+{
+    const infoLog = gl.getShaderInfoLog(fragmentShader);
+    throw new Error(`Shader failed to compile:\n${infoLog}`);
+}
 
 const shaderProgram = gl.createProgram();
 gl.attachShader(shaderProgram, vertexShader);
 gl.attachShader(shaderProgram, fragmentShader);
 gl.linkProgram(shaderProgram);
+
+if(!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS))
+{
+    const infoLog = gl.getProgramInfoLog(shaderProgram);
+    throw new Error(`Program failed to link: ${infoLog}`);
+}
+
 gl.useProgram(shaderProgram);
 
 gl.detachShader(shaderProgram, vertexShader);
