@@ -1,3 +1,4 @@
+import VertexArray from "./core/vertex-array.js";
 import VertexBuffer from "./core/vertex-buffer.js";
 import WebGLContext from "./core/webgl-context.js";
 import Shader from "./graphics/shader.js";
@@ -41,10 +42,9 @@ const vertices = new Float32Array([
      0.5, -0.5
 ]);
 
-const VAO = gl.createVertexArray();
-gl.bindVertexArray(VAO);
+const VAO = new VertexArray();
+VAO.AddStaticVBO("VBO", vertices);
 
-const VBO = new VertexBuffer(vertices, gl.STATIC_DRAW);
 
 gl.vertexAttribPointer(0, 2, gl.FLOAT, false, vertices.BYTES_PER_ELEMENT * 2, 0);
 gl.enableVertexAttribArray(0);
