@@ -1,14 +1,10 @@
+import WebGLContext from "./core/webgl-context.js";
+
 const canvas = document.getElementById("webgl-canvas");
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
-/** @type {WebGL2RenderingContext} */
-const gl = canvas.getContext("webgl2");
-
-if (!gl)
-{
-    throw new Error("Could not initialise WebGl2 context");
-}
+const gl = WebGLContext.CreateContext(canvas);
 
 const vertexShaderSource = 
 `   #version 300 es
